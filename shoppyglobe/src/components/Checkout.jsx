@@ -16,50 +16,74 @@ export default function Checkout() {
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
-    // dummy validation
+
     if (!form.name || !form.email || !form.address) {
-      alert('Please fill all details');
+      alert('⚠️ Please fill in all details.');
       return;
     }
+
     setPlacing(true);
-    // Simulate order placing:
     setTimeout(() => {
-      alert('Order placed');
+      alert('✅ Order placed successfully!');
       dispatch(clearCart());
-      navigate('/'); // auto redirect to home
-    }, 800);
+      navigate('/');
+    }, 1000);
   };
 
   return (
-    <main className="container checkout">
-      <h2>Checkout</h2>
-      <form className="checkout-form" onSubmit={handlePlaceOrder}>
-        <div>
-          <label>Name</label>
-          <input name="name" value={form.name} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Email</label>
-          <input name="email" value={form.email} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Address</label>
-          <textarea name="address" value={form.address} onChange={handleChange}/>
-        </div>
+    <main className="checkout-page">
+      <div className="checkout-container">
+        <h2>Checkout</h2>
+        <form className="checkout-form" onSubmit={handlePlaceOrder}>
+          <label>Full Name</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Enter your full name"
+          />
 
-        <div className="order-summary">
-          <h3>Order Summary</h3>
-          {items.map(it => (
-            <div key={it.id} className="summary-item">
-              <span>{it.title} x {it.qty}</span>
-              <span>₹{it.price * it.qty}</span>
+          <label>Email Address</label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+          />
+
+          <label>Delivery Address</label>
+          <textarea
+            name="address"
+            rows="3"
+            value={form.address}
+            onChange={handleChange}
+            placeholder="Enter complete address"
+          />
+
+          <div className="order-summary">
+            <h3>Order Summary</h3>
+            {items.map(it => (
+              <div key={it.id} className="order-item">
+                <span>{it.title} × {it.qty}</span>
+                <span>₹{(it.price * it.qty).toFixed(2)}</span>
+              </div>
+            ))}
+            <div className="order-total">
+              Total: ₹{totalAmount.toFixed(2)}
             </div>
-          ))}
-          <p><strong>Total: ₹{totalAmount}</strong></p>
-        </div>
+          </div>
 
-        <button type="submit" disabled={placing}>{placing ? 'Placing...' : 'Place Order'}</button>
-      </form>
+          <button
+            type="submit"
+            className="place-order-btn"
+            disabled={placing}
+          >
+            {placing ? 'Placing Order...' : 'Place your order'}
+          </button>
+        </form>
+      </div>
     </main>
   );
 }

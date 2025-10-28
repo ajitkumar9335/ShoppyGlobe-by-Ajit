@@ -1,41 +1,556 @@
+/* =========================================================
+   🎨 SHOPPYGLOBE - AMAZON STYLE THEME
+   ========================================================= */
+
+/* -------------------------
+   VARIABLES
+------------------------- */
 :root {
   --maxw: 1100px;
+  --primary: #232f3e;
+  --secondary: #37475a;
+  --accent: #febd69;
+  --accent-dark: #f90;
+  --text-dark: #111;
+  --text-light: #fff;
+  --bg-light: #f3f3f3;
+  --shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  --radius: 8px;
 }
-* { box-sizing: border-box; }
-body { font-family: system-ui, Arial; margin:0; padding:0; }
-.container { max-width: var(--maxw); margin: 0 auto; padding: 16px; }
-.header { background: linear-gradient(90deg,#2b6ef6,#8e44ff); color: white; padding: 12px 0; }
-.header .header-inner { display:flex; justify-content:space-between; align-items:center; }
-.logo { font-weight:700; color: white; text-decoration:none; font-size:1.2rem; }
-.header nav a { color: white; margin-left: 12px; text-decoration:none; }
-.badge { background: #ffdd57; color: #222; padding: 2px 8px; border-radius: 12px; margin-left:8px; }
 
-.grid.products-grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:16px; margin-top:12px; }
-.card { border:1px solid #e5e5e5; border-radius:8px; overflow:hidden; background:white; }
-.card img { width:100%; height:160px; object-fit:cover; display:block; }
-.card-body { padding:12px; }
-.price { color: #e53935; font-weight:700; margin:8px 0; }
-.actions { display:flex; gap:8px; }
-button { padding:8px 12px; cursor:pointer; border: none; background:#2b6ef6; color:white; border-radius:6px; }
-.details-link { background: #f3f3f3; color: #333; padding:8px 10px; display:inline-block; text-decoration:none; border-radius:6px; }
-
-.product-detail .detail-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; align-items:start; }
-.cart-grid { display:flex; gap:16px; }
-.cart-items { flex: 2; }
-.cart-summary { flex:1; border:1px solid #eee; padding:12px; border-radius:8px; height:fit-content; }
-
-.cart-item { display:flex; gap:12px; margin-bottom:12px; border-bottom:1px dashed #eee; padding-bottom:12px; }
-.cart-item img { width:100px; height:80px; object-fit:cover; }
-
-.qty-control button { width:36px; height:36px; }
-
-.loading { padding: 56px; text-align:center; }
-
-.error { color: #b00020; }
-.search-row { margin: 12px 0; }
-.search-row input { width:100%; padding:8px; border-radius:6px; border:1px solid #ddd; }
-
-@media (max-width: 700px) {
-  .product-detail .detail-grid { grid-template-columns: 1fr; }
-  .cart-grid { flex-direction:column; }
+/* -------------------------
+   GLOBAL RESET & BASE
+------------------------- */
+* {
+  box-sizing: border-box;
 }
+
+body {
+  font-family: "Amazon Ember", "Poppins", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* -------------------------
+   CONTAINER
+------------------------- */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* =========================================================
+   🔹 HEADER
+========================================================= */
+.header {
+  background: var(--primary);
+  color: var(--text-light);
+  padding: 12px 0;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header .header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+}
+
+.header nav a {
+  color: var(--text-light);
+  margin-left: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.header nav a:hover {
+  color: var(--accent);
+}
+
+.badge {
+  background: var(--accent);
+  color: var(--text-dark);
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   🛒 PRODUCT GRID
+========================================================= */
+.grid.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  padding: 14px;
+}
+
+.card-body h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: #222;
+  font-weight: 600;
+}
+
+.price {
+  color: #b12704; /* Amazon red price color */
+  font-weight: 700;
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+/* =========================================================
+   🧭 BUTTONS & LINKS
+========================================================= */
+button {
+  padding: 8px 14px;
+  cursor: pointer;
+  border: none;
+  background: var(--accent);
+  color: var(--text-dark);
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: var(--accent-dark);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.details-link {
+  background: #fff;
+  color: #007185; /* Amazon link blue */
+  padding: 8px 10px;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.details-link:hover {
+  background: #f7fafa;
+  color: #c7511f;
+}
+
+/* =========================================================
+   🏷️ PRODUCT DETAIL
+========================================================= */
+.product-detail .detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.product-detail img {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* =========================================================
+   🛒 CART SECTION
+========================================================= */
+.cart-grid {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.cart-items {
+  flex: 2;
+}
+
+.cart-summary {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 14px;
+  border-radius: var(--radius);
+  height: fit-content;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.cart-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 12px;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qty-control button {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  font-weight: 600;
+  background: var(--accent);
+  color: #111;
+}
+
+.qty-control button:hover {
+  background: var(--accent-dark);
+}
+
+/* =========================================================
+   🔍 SEARCH BOX
+========================================================= */
+.search-row {
+  margin: 16px 0;
+}
+
+.search-row input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-row input:focus {
+  outline: none;
+  border-color: var(--accent-dark);
+  box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.3);
+}
+
+/* =========================================================
+   ⚠️ STATES
+========================================================= */
+.loading {
+  padding: 56px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.error {
+  color: #b12704;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   💳 CHECKOUT PAGE
+========================================================= */
+.checkout-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.checkout-container h2 {
+  font-size: 1.8rem;
+  color: #111;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.checkout-form label {
+  font-weight: 600;
+  color: #333;
+}
+
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus {
+  border-color: #febd69;
+  box-shadow: 0 0 0 3px rgba(255, 189, 105, 0.3);
+  outline: none;
+}
+
+.order-summary {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.order-summary h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.order-item {
+  padding: 6px 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.order-total {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #b12704;
+}
+
+.place-order-btn {
+  margin-top: 24px;
+  background: #febd69;
+  color: #111;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.place-order-btn:hover {
+  background: #f90;
+  transform: translateY(-2px);
+}
+
+.place-order-btn:active {
+  transform: scale(0.97);
+}
+
+/* =========================================================
+    CART PAGE (Detailed Layout) start
+========================================================= */
+.cart-page {
+  background-color: #f3f3f3;
+  min-height: 100vh;
+  padding: 40px 60px;
+  font-family: "Amazon Ember", Arial, sans-serif;
+}
+
+.cart-container {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.cart-left {
+  flex: 2;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 24px;
+}
+
+.cart-left h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-details h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #111;
+}
+
+.cart-item-details p {
+  margin: 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.quantity-controls button {
+  background: #febd69;
+  color: #111;
+  border: none;
+  padding: 6px 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quantity-controls button:hover {
+  background: #f90;
+}
+
+.remove-btn {
+  margin-top: 10px;
+  background: #ffa41c;
+  color: #111;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #f90;
+}
+/* =========================================================
+    CART PAGE (Detailed Layout) end
+========================================================= */
+
+/* =========================================================
+    SUMMARY CARD start
+========================================================= */
+
+.cart-summary {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 24px;
+  position: sticky;
+  top: 20px;
+}
+
+.cart-summary h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.cart-summary p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.checkout-btn {
+  background: #febd69;
+  color: #111;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.checkout-btn:hover {
+  background: #f90;
+  transform: translateY(-2px);
+}
+
+.checkout-btn:active {
+  transform: scale(0.98);
+}
+
+/* =========================================================
+    SUMMARY CARD end
+========================================================= */
+
+
+/* =========================================================
+   📱 RESPONSIVE DESIGN start
+========================================================= */
+@media (max-width: 768px) {
+  .product-detail .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-grid,
+  .cart-container {
+    flex-direction: column;
+  }
+
+  .header .header-inner {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cart-summary {
+    position: static;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+/* =========================================================
+   📱 RESPONSIVE DESIGN end
+========================================================= */
