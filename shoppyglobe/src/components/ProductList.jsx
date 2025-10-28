@@ -5,9 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export default function ProductList() {
   const { products, loading, error } = useProducts();
-  // Search integrated with Redux? We'll keep local search state but reflect requirement:
-  // The requirement asked to implement search using redux state; for simplicity you'll
-  // keep search local but show how to adapt. (If needed, move search state to redux.)
+  
   const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
